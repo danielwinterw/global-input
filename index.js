@@ -6,7 +6,8 @@ class GlobalInput {
             submitKey: 'Enter',
             debug: false,
             excludeNodes: [],
-            excludeNodeNames: []
+            excludeNodeNames: [],
+            preventDefault: false
         }, options)
         this.onChange = onChange
         this.onSubmit = onSubmit
@@ -46,6 +47,8 @@ class GlobalInput {
     }
 
     action(e) {
+        if (this.options.preventDefault) e.preventDefault()
+
         if (
             this.options.excludeNodes.includes(document.activeElement) ||
             this.options.excludeNodeNames.includes(document.activeElement.nodeName)
