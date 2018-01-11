@@ -43,7 +43,6 @@ class GlobalInput {
 
     setValue(value) {
         this.inputCache = value
-        this.handle('Change', value)
     }
 
     action(e) {
