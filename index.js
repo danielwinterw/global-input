@@ -13,6 +13,7 @@ class GlobalInput {
         this.onChange = onChange
         this.onSubmit = onSubmit
         this.inputCache = ''
+        this.mounted = false
 
         this.mount = this.mount.bind(this)
         this.unmount = this.unmount.bind(this)
@@ -33,12 +34,16 @@ class GlobalInput {
     }
 
     mount() {
+        if (this.mounted) return console.warn('Input already mounted')
         document.body.addEventListener('keydown', this.action)
+        this.mounted = true
         if (this.options.debug) console.warn('mounted')
     }
 
     unmount() {
+        if (!this.mounted) return console.warn('Input already unmounted')
         document.body.removeEventListener('keydown', this.action)
+        this.mounted = false
         if (this.options.debug) console.warn('unmounted')
     }
 
