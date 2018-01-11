@@ -14,6 +14,7 @@ class GlobalInput {
 
         this.mount = this.mount.bind(this)
         this.unmount = this.unmount.bind(this)
+        this.setValue = this.setValue.bind(this)
         this.action = this.action.bind(this)
 
         this.mount()
@@ -37,6 +38,11 @@ class GlobalInput {
     unmount() {
         document.body.removeEventListener('keydown', this.action)
         if (this.options.debug) console.warn('unmounted')
+    }
+
+    setValue(value) {
+        this.inputCache = value
+        this.handle('Change', value)
     }
 
     action(e) {
