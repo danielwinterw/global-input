@@ -65,12 +65,12 @@ class GlobalInput {
 
         switch(e.key) {
             case this.options.submitKey:
-                this.handle('Submit', this.inputCache)
+                const value = String(this.inputCache);
+                this.handle('Submit', value)
 
                 this.inputCache = ''
-                this.handle('Change', this.inputCache)
 
-                return
+                return value
                 break
 
             case 'Backspace':
