@@ -46,8 +46,6 @@ class GlobalInput {
     }
 
     action(e) {
-        if (this.options.preventDefault) e.preventDefault()
-
         if (
             this.options.excludeNodes.includes(document.activeElement) ||
             this.options.excludeNodeNames.includes(document.activeElement.nodeName) ||
@@ -57,6 +55,8 @@ class GlobalInput {
         ) {
             return
         }
+
+        if (this.options.preventDefault) e.preventDefault()
 
         switch(e.key) {
             case this.options.submitKey:
