@@ -54,10 +54,28 @@ const options {
 }
 ```
 
+### Preventing Default Key Behaviour
+You can prevent page jumps and default behaviour.
+```
+const options {
+    preventDefault: false
+}
+```
+
 ### Unmounting and Remounting an Input
 
 You can stop/start the global listener and halt the input in it's current state.
 ```
 globalInput.unmount();
 globalInput.mount();
+
+console.log(globalInput.mounted) // true or false
+```
+
+### Default Mount State 
+You can disable the global input when other elements are in focus. You can pass in elements or node names.
+```
+const options {
+    mountInitial: false
+}
 ```
