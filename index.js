@@ -50,7 +50,10 @@ class GlobalInput {
 
         if (
             this.options.excludeNodes.includes(document.activeElement) ||
-            this.options.excludeNodeNames.includes(document.activeElement.nodeName)
+            this.options.excludeNodeNames.includes(document.activeElement.nodeName) ||
+            e.getModifierState('Alt') ||
+            e.getModifierState('Control') ||
+            e.getModifierState('OS')
         ) {
             return
         }
