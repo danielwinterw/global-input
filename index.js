@@ -7,7 +7,8 @@ class GlobalInput {
             debug: false,
             excludeNodes: [],
             excludeNodeNames: [],
-            preventDefault: false
+            preventDefault: false,
+            mountInitial: true,
         }, options)
         this.onChange = onChange
         this.onSubmit = onSubmit
@@ -18,7 +19,7 @@ class GlobalInput {
         this.setValue = this.setValue.bind(this)
         this.action = this.action.bind(this)
 
-        this.mount()
+        if (this.options.mountInitial) this.mount()
     }
 
     handle(method, value) {
