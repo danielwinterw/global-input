@@ -1,6 +1,6 @@
 {
   "name": "global-input",
-  "version": "1.0.9",
+  "version": "1.0.10",
   "description": "A browser library for detecting input without an input.",
   "main": "dist/bundle.js",
   "author": "Daniel Winter-Wijntjes",
@@ -9,6 +9,9 @@
     "build": "webpack --config webpack.config.js"
   },
   "dependencies": {
+    "babel-core": "^6.26.0",
+    "babel-loader": "^7.1.2",
+    "babel-polyfill": "^6.26.0",
     "webpack": "^3.10.0"
   }
 }
