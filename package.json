@@ -1,6 +1,6 @@
 {
   "name": "global-input",
-  "version": "1.0.12",
+  "version": "1.0.11",
   "description": "A browser library for detecting input without an input.",
   "main": "dist/bundle.js",
   "author": "Daniel Winter-Wijntjes",
