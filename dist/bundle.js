@@ -9022,11 +9022,22 @@ module.exports = function (regExp, replace) {
 
 /***/ }),
 /* 328 */
-/***/ (function(module, exports) {
+/***/ (function(module, exports, __webpack_require__) {
 
-class GlobalInput {
-    constructor(onChange, onSubmit, options = {}){
-        if (!document) throw Error('`document` not found')
+"use strict";
+
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var GlobalInput = function () {
+    function GlobalInput(onChange, onSubmit) {
+        var options = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
+
+        _classCallCheck(this, GlobalInput);
+
+        if (!document) throw Error('`document` not found');
 
         this.options = Object.assign({
             submitKey: 'Enter',
@@ -9034,101 +9045,93 @@ class GlobalInput {
             excludeNodes: [],
             excludeNodeNames: [],
             preventDefault: false,
-            mountInitial: true,
-        }, options)
-        this.onChange = onChange
-        this.onSubmit = onSubmit
-        this.inputCache = ''
-        this.mounted = false
+            mountInitial: true
+        }, options);
+        this.onChange = onChange;
+        this.onSubmit = onSubmit;
+        this.inputCache = '';
+        this.mounted = false;
 
-        this.mount = this.mount.bind(this)
-        this.unmount = this.unmount.bind(this)
-        this.setValue = this.setValue.bind(this)
-        this.action = this.action.bind(this)
+        this.mount = this.mount.bind(this);
+        this.unmount = this.unmount.bind(this);
+        this.setValue = this.setValue.bind(this);
+        this.action = this.action.bind(this);
 
-        if (this.options.mountInitial) this.mount()
+        if (this.options.mountInitial) this.mount();
     }
 
-    handle(method, value) {
-        if (this.options.debug) {
-            console.info('Method: ' + method)
-            console.info('Input Value: ' + this.inputCache)
-            console.log('')
+    _createClass(GlobalInput, [{
+        key: 'handle',
+        value: function handle(method, value) {
+            if (this.options.debug) {
+                console.info('Method: ' + method);
+                console.info('Input Value: ' + this.inputCache);
+                console.log('');
+            }
+
+            this['on' + method](value);
         }
-
-        this['on' + method](value)
-    }
-
-    mount() {
-        if (this.mounted) return console.warn('Input already mounted')
-        document.body.addEventListener('keydown', this.action)
-        this.mounted = true
-        if (this.options.debug) console.warn('mounted')
-    }
-
-    unmount() {
-        if (!this.mounted) return console.warn('Input already unmounted')
-        document.body.removeEventListener('keydown', this.action)
-        this.mounted = false
-        if (this.options.debug) console.warn('unmounted')
-    }
-
-    setValue(value) {
-        this.inputCache = value
-    }
-
-    action(e) {
-        if (
-            this.options.excludeNodes.includes(document.activeElement) ||
-            this.options.excludeNodeNames.includes(document.activeElement.nodeName) ||
-            e.getModifierState('Alt') ||
-            e.getModifierState('Control') ||
-            e.getModifierState('OS') ||
-            e.getModifierState('Fn') ||
-            e.getModifierState('Meta') ||
-            e.getModifierState('Win') ||
-            e.getModifierState('Hyper') ||
-            e.getModifierState('Super')
-        ) {
-            return
+    }, {
+        key: 'mount',
+        value: function mount() {
+            if (this.mounted) return console.warn('Input already mounted');
+            document.body.addEventListener('keydown', this.action);
+            this.mounted = true;
+            if (this.options.debug) console.warn('mounted');
         }
-
-        if (this.options.preventDefault) e.preventDefault()
-
-        switch(e.key) {
-            case this.options.submitKey:
-                const value = String(this.inputCache);
-                this.handle('Submit', value)
-
-                this.inputCache = ''
-
-                return value
-                break
-
-            case 'Backspace':
-                this.inputCache = this.inputCache.slice(0, -1)
-
-                break
-
-            default:
-                const caps = e.getModifierState && (
-                    e.getModifierState('CapsLock') ||
-                    e.getModifierState('Shift')
-                )
-
-                this.inputCache += (
-                    e.key.length === 1 ? e.key : ''
-                )[caps ? 'toUpperCase' : 'toLowerCase']()
-
-                break
+    }, {
+        key: 'unmount',
+        value: function unmount() {
+            if (!this.mounted) return console.warn('Input already unmounted');
+            document.body.removeEventListener('keydown', this.action);
+            this.mounted = false;
+            if (this.options.debug) console.warn('unmounted');
         }
+    }, {
+        key: 'setValue',
+        value: function setValue(value) {
+            this.inputCache = value;
+        }
+    }, {
+        key: 'action',
+        value: function action(e) {
+            if (this.options.excludeNodes.includes(document.activeElement) || this.options.excludeNodeNames.includes(document.activeElement.nodeName) || e.getModifierState('Alt') || e.getModifierState('Control') || e.getModifierState('OS') || e.getModifierState('Fn') || e.getModifierState('Meta') || e.getModifierState('Win') || e.getModifierState('Hyper') || e.getModifierState('Super')) {
+                return;
+            }
 
-        this.handle('Change', this.inputCache)
-    }
-}
+            if (this.options.preventDefault) e.preventDefault();
 
-module.exports = GlobalInput
+            switch (e.key) {
+                case this.options.submitKey:
+                    var value = String(this.inputCache);
+                    this.handle('Submit', value);
 
+                    this.inputCache = '';
+
+                    return value;
+                    break;
+
+                case 'Backspace':
+                    this.inputCache = this.inputCache.slice(0, -1);
+
+                    break;
+
+                default:
+                    var caps = e.getModifierState && (e.getModifierState('CapsLock') || e.getModifierState('Shift'));
+
+                    this.inputCache += (e.key.length === 1 ? e.key : '')[caps ? 'toUpperCase' : 'toLowerCase']();
+
+                    break;
+            }
+
+            this.handle('Change', this.inputCache);
+        }
+    }]);
+
+    return GlobalInput;
+}();
+
+module.exports = GlobalInput;
 
 /***/ })
 /******/ ]);
