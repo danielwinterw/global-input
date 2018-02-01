@@ -1,14 +1,8 @@
 {
   "name": "global-input",
-  "version": "1.0.9",
+  "version": "1.0.8",
   "description": "A browser library for detecting input without an input.",
-  "main": "dist/bundle.js",
+  "main": "index.js",
   "author": "Daniel Winter-Wijntjes",
-  "license": "MIT",
-  "scripts": {
-    "build": "webpack --config webpack.config.js"
-  },
-  "dependencies": {
-    "webpack": "^3.10.0"
-  }
+  "license": "MIT"
 }
