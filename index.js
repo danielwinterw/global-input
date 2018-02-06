@@ -55,14 +55,16 @@ class GlobalInput {
         if (
             this.options.excludeNodes.includes(document.activeElement) ||
             this.options.excludeNodeNames.includes(document.activeElement.nodeName) ||
-            e.getModifierState('Alt') ||
-            e.getModifierState('Control') ||
-            e.getModifierState('OS') ||
-            e.getModifierState('Fn') ||
-            e.getModifierState('Meta') ||
-            e.getModifierState('Win') ||
-            e.getModifierState('Hyper') ||
-            e.getModifierState('Super')
+            typeof e.getModifierState === 'function' && (
+                e.getModifierState('Alt') ||
+                e.getModifierState('Control') ||
+                e.getModifierState('OS') ||
+                e.getModifierState('Fn') ||
+                e.getModifierState('Meta') ||
+                e.getModifierState('Win') ||
+                e.getModifierState('Hyper') ||
+                e.getModifierState('Super')
+            )
         ) {
             return
         }
