@@ -20,6 +20,12 @@ class GlobalInput {
         this.setValue = this.setValue.bind(this)
         this.action = this.action.bind(this)
 
+        if (!window.GlobalInput) {
+            window.GlobalInput = {
+                isMasterDisabled: false
+            }
+        }
+
         if (this.options.mountInitial) this.mount()
     }
 
@@ -51,7 +57,19 @@ class GlobalInput {
         this.inputCache = value
     }
 
+    masterDisable() {
+        window.GlobalInput.isMasterDisabled = true
+    }
+
+    masterEnable() {
+        window.GlobalInput.isMasterDisabled = false
+    }
+
     action(e) {
+        if (window.GlobalInput.isMasterDisabled) {
+            return
+        }
+
         if (
             this.options.excludeNodes.includes(document.activeElement) ||
             this.options.excludeNodeNames.includes(document.activeElement.nodeName) ||
